@@ -3,180 +3,186 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MotionForge AI</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MotionForge Studio</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#090a10;color:#f5f5fa;font-family:Arial,sans-serif}
-header{height:70px;border-bottom:1px solid #242532;display:flex;align-items:center;justify-content:space-between;padding:0 6%;background:#0d0e16}
-.logo{font-size:23px;font-weight:800;letter-spacing:-1px}
-.logo span{color:#9b7aff}
-.tag{font-size:11px;color:#bba8ff;border:1px solid #49366e;padding:5px 8px;border-radius:20px}
-main{max-width:1050px;margin:55px auto;padding:0 22px}
-h1{font-size:clamp(34px,6vw,57px);letter-spacing:-2px;margin:0 0 14px}
-h1 span{color:#a58aff}
-.sub{color:#9b9caf;line-height:1.7}
-.panel{margin-top:30px;background:#11121c;border:1px solid #292a3b;border-radius:15px;padding:20px}
-label{display:block;font-size:13px;color:#bcbdd0;margin-bottom:12px}
-textarea{width:100%;height:100px;background:#090a12;color:white;border:1px solid #303145;border-radius:9px;padding:15px;font:14px Arial;resize:vertical;outline:none}
-textarea:focus{border-color:#9b7aff}
-.controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center}
-select,button{padding:12px 15px;border-radius:8px;border:1px solid #343448;background:#191a28;color:white;cursor:pointer}
-button.primary{background:#9473ff;border:0;color:#090712;font-weight:800;flex:1;min-width:150px}
-button:hover{filter:brightness(1.15)}
-.workspace{margin-top:20px;display:grid;grid-template-columns:1fr 250px;gap:16px}
-.preview{background:#05060a;border:1px solid #292a3b;border-radius:13px;overflow:hidden}
-.previewhead{padding:14px;border-bottom:1px solid #242532;color:#aaaabd;font-size:12px;display:flex;justify-content:space-between}
-.stage{height:300px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at center,#19132e 0%,#080910 70%)}
-.stage:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);background-size:30px 30px}
-#art{position:relative;text-align:center;max-width:95%;overflow-wrap:anywhere;font-size:clamp(24px,5vw,52px);font-weight:900;letter-spacing:-2px;text-shadow:0 0 24px #9a70ff;animation:float 3s ease-in-out infinite}
-#art small{display:block;font-size:11px;letter-spacing:5px;color:#c6b5ff;margin-top:15px}
+body{margin:0;background:#0b0b10;color:#eeeef7;font:13px Arial,sans-serif}
+button,input,select{font:inherit}
+button{cursor:pointer;color:#eeeef7;background:#20202b;border:1px solid #343443;border-radius:7px;padding:9px 12px}
+button:hover{border-color:#a28aff}
+.top{height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid #292936}
+.brand{font-size:20px;font-weight:bold;letter-spacing:-.7px}.brand span{color:#a58aff}
+.actions{display:flex;gap:8px;align-items:center}
+.purple{background:#9875ff;color:#100b20;border-color:#9875ff;font-weight:bold}
+.layout{display:grid;grid-template-columns:220px minmax(0,1fr) 235px;height:calc(100vh - 58px - 190px);min-height:390px}
+.panel{background:#111119;border-right:1px solid #292936;overflow:auto}
+.right{border-right:0;border-left:1px solid #292936;padding:16px}
+.heading{font-size:11px;font-weight:bold;letter-spacing:1.2px;color:#9292a8;padding:18px 15px 12px}
+.prompt{padding:0 12px}
+textarea{width:100%;min-height:100px;resize:vertical;background:#0b0b12;color:#fff;border:1px solid #343443;border-radius:8px;padding:11px;line-height:1.5}
+select,input{max-width:100%;background:#171720;color:white;border:1px solid #343443;padding:9px;border-radius:7px}
+.full{width:100%;margin-top:9px}
+.hint{color:#85859a;font-size:11px;line-height:1.6}
+.preset{display:block;width:100%;text-align:left;margin:5px 0;background:#171720}
+.center{display:flex;flex-direction:column;min-width:0;background:#0d0d14}
+.toolbar{height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;border-bottom:1px solid #292936;color:#a3a3b7}
+.stagewrap{flex:1;display:flex;align-items:center;justify-content:center;padding:20px;min-height:250px}
+.stage{position:relative;width:min(100%,720px);aspect-ratio:16/9;overflow:hidden;background:radial-gradient(ellipse at center,#252044,#090910 75%);display:flex;align-items:center;justify-content:center;border:1px solid #343044}
+.grid{position:absolute;inset:0;background-image:linear-gradient(#ffffff09 1px,transparent 1px),linear-gradient(90deg,#ffffff09 1px,transparent 1px);background-size:25px 25px}
+.orb{position:absolute;width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#c4a8ff,#6640f4 50%,#201043);filter:blur(1px);opacity:.8;animation:orbit 5s ease-in-out infinite}
+.orb.two{width:45px;height:45px;background:linear-gradient(135deg,#fff,#5ee7ff);left:18%;top:20%;animation-delay:-2s}
+.orb.three{width:25px;height:25px;background:#ff70d2;right:20%;bottom:20%;animation-delay:-3s}
+#graphic{position:relative;z-index:2;text-align:center;font-size:clamp(22px,4vw,54px);font-weight:900;letter-spacing:-2px;text-shadow:0 0 22px #9875ff;overflow-wrap:anywhere;max-width:90%;animation:float 3s ease-in-out infinite}
+#graphic small{display:block;font-size:10px;letter-spacing:5px;margin-top:15px;color:#c4b4ff}
 @keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-12px) scale(1.03)}}
-.side{background:#11121c;border:1px solid #292a3b;border-radius:13px;padding:17px}
-.side h3{font-size:14px;margin-top:0}
-.side p{font-size:12px;color:#9b9caf;line-height:1.7}
-.chip{display:inline-block;padding:7px 9px;margin:3px;background:#201b33;border:1px solid #443568;border-radius:7px;font-size:11px;cursor:pointer}
-.status{font-size:12px;color:#b9a6ff;margin-top:12px;min-height:16px}
-footer{text-align:center;color:#65677d;font-size:11px;padding:35px}
-@media(max-width:700px){.workspace{grid-template-columns:1fr}.stage{height:240px}.side{order:2}main{margin-top:35px}}
+@keyframes orbit{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(30px,-15px) rotate(35deg)}}
+.bottom{height:190px;border-top:1px solid #343443;background:#111119;overflow:auto}
+.timelinehead{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:1px solid #292936}
+.track{display:grid;grid-template-columns:145px minmax(300px,1fr);height:43px;border-bottom:1px solid #252532}
+.trackname{padding:14px;border-right:1px solid #292936;color:#c8c8d7}
+.lane{position:relative;padding:8px 10px}
+.clip{height:25px;border-radius:5px;background:linear-gradient(90deg,#7050ce,#a283ff);width:72%;padding:6px 9px;font-size:10px;white-space:nowrap;overflow:hidden}
+.clip.blue{background:linear-gradient(90deg,#246b94,#55b8d8);width:48%}
+.clip.pink{background:linear-gradient(90deg,#914a91,#e78bd9);width:60%}
+.key{position:absolute;right:22%;top:17px;width:8px;height:8px;background:#fff;transform:rotate(45deg)}
+.setting{padding:12px 0;border-bottom:1px solid #292936}
+.setting label{display:block;color:#a5a5b9;font-size:11px;margin-bottom:8px}
+.setting input,.setting select{width:100%}
+.swatches{display:flex;gap:8px}
+.swatch{height:25px;width:25px;border-radius:6px;border:1px solid #555;cursor:pointer}
+.status{color:#b5a1ff;font-size:11px}
+@media(max-width:800px){.layout{grid-template-columns:165px minmax(0,1fr);height:auto}.right{display:none}.stagewrap{padding:12px}.bottom{height:180px}.top{padding:0 10px}.brand{font-size:16px}.actions button{padding:7px}.track{grid-template-columns:100px minmax(300px,1fr)}}
+@media(max-width:520px){.layout{grid-template-columns:1fr}.panel.left{border-right:0;border-bottom:1px solid #292936}.panel.left .heading:nth-of-type(n+2),.panel.left .presets{display:none}.prompt textarea{min-height:65px}.layout{height:auto}.stagewrap{min-height:220px}.actions .optional{display:none}}
 </style>
 </head>
 <body>
-<header>
-  <div class="logo">✳ MotionForge<span> AI</span></div>
-  <div class="tag">MOTION STUDIO · BETA</div>
+<header class="top">
+  <div class="brand">✳ MotionForge<span> Studio</span></div>
+  <div class="actions">
+    <span class="status" id="status">All changes saved locally</span>
+    <button id="play">▶ Play</button>
+    <button id="reset">Reset</button>
+    <button class="purple" id="export">Export WebM</button>
+  </div>
 </header>
-<main>
-  <h1>Your ideas.<br><span>In motion.</span></h1>
-  <p class="sub">Describe your vision. Create animated typography and cinematic motion graphics in seconds.</p>
-  <section class="panel">
-    <label for="prompt">DESCRIBE YOUR MOTION GRAPHIC</label>
-    <textarea id="prompt" placeholder="e.g. 3D chrome text with purple lightning and cinematic glow...">MOTION FORGE</textarea>
-    <div class="controls">
-      <select id="style">
-        <option value="neon">Neon glow</option>
-        <option value="chrome">Chrome style</option>
-        <option value="minimal">Minimal clean</option>
-        <option value="fire">Fire glow</option>
-      </select>
-      <select id="speed">
-        <option value="3">Normal speed</option>
-        <option value="1.5">Fast motion</option>
-        <option value="5">Slow cinematic</option>
-      </select>
-      <button class="primary" id="generate">✦ Generate animation</button>
+<div class="layout">
+  <aside class="panel left">
+    <div class="heading">✦ PROMPT STUDIO</div>
+    <div class="prompt">
+      <textarea id="prompt" placeholder="Describe your motion graphic...">Futuristic purple 3D title with floating glowing orbs</textarea>
+      <button class="purple full" id="generate">✦ Generate composition</button>
+      <p class="hint">This prototype creates a procedural animated composition from your text prompt using built-in visual styles.</p>
     </div>
-    <div class="status" id="status">Ready to create</div>
-  </section>
-  <section class="workspace">
-    <div class="preview">
-      <div class="previewhead"><span>LIVE PREVIEW</span><span>1920 × 1080 · STYLE DEMO</span></div>
+    <div class="heading">QUICK START</div>
+    <div class="prompt presets">
+      <button class="preset" data-text="NEON FUTURE">Neon title</button>
+      <button class="preset" data-text="CHROME WORLD">Chrome world</button>
+      <button class="preset" data-text="COSMIC ENERGY">Cosmic energy</button>
+      <button class="preset" data-text="LIQUID DREAMS">Liquid dreams</button>
+    </div>
+    <div class="heading">ANIMATION</div>
+    <div class="prompt">
+      <label class="hint">Duration</label>
+      <select id="duration" class="full"><option value="5">5 seconds</option><option value="10">10 seconds</option><option value="15">15 seconds</option></select>
+      <label class="hint">Aspect ratio</label>
+      <select id="ratio" class="full"><option value="16/9">16:9 Landscape</option><option value="9/16">9:16 Portrait</option><option value="1/1">1:1 Square</option></select>
+    </div>
+  </aside>
+  <main class="center">
+    <div class="toolbar"><span>COMPOSITION / MAIN SCENE</span><span>LIVE CANVAS</span></div>
+    <div class="stagewrap">
       <div class="stage" id="stage">
-        <div id="art">MOTION FORGE<small>CREATE WITHOUT LIMITS</small></div>
-      </div>
-      <div class="controls" style="padding:0 14px 14px">
-        <button id="replay">↻ Replay</button>
-        <button id="export">↓ Export animation</button>
+        <div class="grid"></div><div class="orb"></div><div class="orb two"></div><div class="orb three"></div>
+        <div id="graphic">MOTION FORGE<small>DESIGN IN MOTION</small></div>
       </div>
     </div>
-    <aside class="side">
-      <h3>✦ Quick prompts</h3>
-      <p>Choose an idea to try it out.</p>
-      <div class="chip" data-prompt="Futuristic chrome 3D typography with blue glowing edges">Chrome 3D</div>
-      <div class="chip" data-prompt="Purple neon title with glowing particles">Neon title</div>
-      <div class="chip" data-prompt="Minimal white typography with smooth cinematic movement">Minimal</div>
-      <div class="chip" data-prompt="Fiery orange title glowing against a dark background">Fire text</div>
-      <p style="margin-top:22px">CURRENT FEATURES</p>
-      <p>✓ Animated typography<br>✓ Multiple visual styles<br>✓ Adjustable animation speed<br>✓ Export animated preview</p>
-      <p style="color:#a58aff">AI video generation integration coming next.</p>
-    </aside>
-  </section>
-</main>
-<footer>MotionForge AI · Turn imagination into motion</footer>
+    <div class="toolbar"><span>Preview · procedural animation</span><span id="time">00:00 / 00:05</span></div>
+  </main>
+  <aside class="panel right">
+    <div class="heading" style="padding:0 0 12px">PROPERTIES</div>
+    <div class="setting"><label>Selected layer</label><select id="layer"><option>Title</option><option>Background orbs</option><option>Subtitle</option></select></div>
+    <div class="setting"><label>Title text</label><input id="title" value="MOTION FORGE"></div>
+    <div class="setting"><label>Font size</label><input id="size" type="range" min="20" max="80" value="54"></div>
+    <div class="setting"><label>Glow intensity</label><input id="glow" type="range" min="0" max="50" value="22"></div>
+    <div class="setting"><label>Accent color</label><div class="swatches"><div class="swatch" data-color="#bba2ff" style="background:#bba2ff"></div><div class="swatch" data-color="#5ee7ff" style="background:#5ee7ff"></div><div class="swatch" data-color="#ff70d2" style="background:#ff70d2"></div><div class="swatch" data-color="#ffad5b" style="background:#ffad5b"></div></div></div>
+    <div class="setting"><label>Animation speed</label><input id="speed" type="range" min="1" max="10" value="3"></div>
+    <p class="hint">Edit properties to update the canvas instantly.</p>
+  </aside>
+</div>
+<section class="bottom">
+  <div class="timelinehead"><strong>◷ TIMELINE</strong><span class="hint">Layers · keyframe preview</span></div>
+  <div class="track"><div class="trackname">◈ Title</div><div class="lane"><div class="clip">Title animation</div><span class="key"></span></div></div>
+  <div class="track"><div class="trackname">◉ Background</div><div class="lane"><div class="clip blue">Moving orbs</div><span class="key"></span></div></div>
+  <div class="track"><div class="trackname">T Subtitle</div><div class="lane"><div class="clip pink">Subtitle fade</div></div></div>
+</section>
 <script>
-const promptBox=document.getElementById('prompt');
-const art=document.getElementById('art');
-const status=document.getElementById('status');
-const stage=document.getElementById('stage');
-function generate(){
- const text=promptBox.value.trim();
- if(!text){status.textContent='Enter a prompt first.';return}
- const style=document.getElementById('style').value;
- const speed=document.getElementById('speed').value;
- art.innerHTML='';
- const title=document.createElement('div');
- title.textContent=text.length>65?text.slice(0,65)+'…':text;
- art.appendChild(title);
- const sub=document.createElement('small');
- sub.textContent='MOTIONFORGE · YOUR CREATION';
- art.appendChild(sub);
- art.style.animation='none';
- void art.offsetWidth;
- art.style.animation=`float ${speed}s ease-in-out infinite`;
- if(style==='chrome'){
-  title.style.background='linear-gradient(#fff,#8d9bb9,#fff,#59647b)';
-  title.style.color='transparent';title.style.backgroundClip='text';
-  art.style.textShadow='0 0 16px #a8b7ff';
- }else if(style==='minimal'){
-  title.style.color='#fff';art.style.textShadow='none';
- }else if(style==='fire'){
-  title.style.color='#ffb15c';art.style.textShadow='0 0 15px #ff4a12,0 0 40px #ff2400';
- }else{
-  title.style.color='#d9c8ff';art.style.textShadow='0 0 18px #9b67ff,0 0 45px #693dff';
- }
- stage.style.background=style==='fire'?'radial-gradient(ellipse,#351408,#080910 75%)':style==='chrome'?'radial-gradient(ellipse,#19253c,#080910 75%)':style==='minimal'?'#101116':'radial-gradient(ellipse,#19132e,#080910 75%)';
- status.textContent='Preview generated! This version uses preset animations.';
+const $=id=>document.getElementById(id);
+let accent='#bba2ff',playing=true;
+function update(){
+ const title=$('title').value||' ';
+ $('graphic').firstChild.textContent=title;
+ $('graphic').style.fontSize=$('size').value+'px';
+ $('graphic').style.textShadow=`0 0 ${$('glow').value}px ${accent}`;
+ $('graphic').style.animationDuration=(11-Number($('speed').value))+'s';
+ $('status').textContent='Composition updated';
 }
-document.getElementById('generate').addEventListener('click',generate);
-document.getElementById('replay').addEventListener('click',()=>{
- art.style.animation='none';void art.offsetWidth;
- art.style.animation=`float ${document.getElementById('speed').value}s ease-in-out infinite`;
-});
-document.querySelectorAll('.chip').forEach(chip=>chip.addEventListener('click',()=>{
- promptBox.value=chip.dataset.prompt;generate();
-}));
-document.getElementById('export').addEventListener('click',()=>{
+$('generate').onclick=()=>{
+ const p=$('prompt').value.trim();
+ if(!p){$('status').textContent='Enter a prompt first';return}
+ $('title').value=p.toUpperCase().slice(0,32);
+ const t=p.toLowerCase();
+ if(t.includes('fire')||t.includes('orange'))accent='#ffad5b';
+ else if(t.includes('blue')||t.includes('ice'))accent='#5ee7ff';
+ else if(t.includes('pink')||t.includes('dream'))accent='#ff70d2';
+ else accent='#bba2ff';
+ document.querySelectorAll('.orb').forEach((o,i)=>o.style.animationDelay=(-i*1.4)+'s');
+ document.querySelectorAll('.swatch').forEach(s=>s.style.outline=s.dataset.color===accent?'2px solid white':'none');
+ $('stage').style.background=t.includes('fire')?'radial-gradient(ellipse,#40200e,#090910 75%)':t.includes('ocean')?'radial-gradient(ellipse,#102f45,#090910 75%)':'radial-gradient(ellipse at center,#252044,#090910 75%)';
+ update();$('status').textContent='Composition created from prompt · preset engine';
+};
+$('title').oninput=update;$('size').oninput=update;$('glow').oninput=update;
+$('speed').oninput=update;
+document.querySelectorAll('.swatch').forEach(s=>s.onclick=()=>{accent=s.dataset.color;update();document.querySelectorAll('.swatch').forEach(x=>x.style.outline=x===s?'2px solid white':'none')});
+document.querySelectorAll('[data-text]').forEach(b=>b.onclick=()=>{$('prompt').value=b.dataset.text;$('generate').click()});
+$('ratio').onchange=()=>{$('stage').style.aspectRatio=$('ratio').value};
+$('duration').onchange=()=>{$('time').textContent='00:00 / 00:'+String($('duration').value).padStart(2,'0')};
+$('play').onclick=()=>{
+ playing=!playing;
+ document.querySelectorAll('#graphic,.orb').forEach(el=>el.style.animationPlayState=playing?'running':'paused');
+ $('play').textContent=playing?'❚❚ Pause':'▶ Play';
+};
+$('reset').onclick=()=>{location.reload()};
+$('export').onclick=()=>{
  const canvas=document.createElement('canvas');
- canvas.width=1280;canvas.height=720;
- const ctx=canvas.getContext('2d');
- const stream=canvas.captureStream(30);
- let recorder;
- try{recorder=new MediaRecorder(stream,{mimeType:'video/webm'});}
- catch(e){status.textContent='Video recording is not supported in this browser.';return}
- const chunks=[];
- recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
- recorder.onstop=()=>{
-  const url=URL.createObjectURL(new Blob(chunks,{type:'video/webm'}));
-  const a=document.createElement('a');a.href=url;a.download='motionforge-animation.webm';a.click();
-  URL.revokeObjectURL(url);status.textContent='Animation exported!';
- };
- let start;
- function draw(now){
-  if(recorder.state!=='recording')return;
-  if(!start)start=now;
-  const t=(now-start)/1000;
-  const grad=ctx.createRadialGradient(640,360,10,640,360,800);
-  grad.addColorStop(0,'#251846');grad.addColorStop(1,'#070810');
-  ctx.fillStyle=grad;ctx.fillRect(0,0,1280,720);
-  ctx.strokeStyle='#ffffff0d';ctx.lineWidth=1;
-  for(let x=0;x<1280;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,720);ctx.stroke()}
-  for(let y=0;y<720;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(1280,y);ctx.stroke()}
-  ctx.save();ctx.translate(640,360+Math.sin(t*2)*18);
-  ctx.textAlign='center';ctx.textBaseline='middle';
-  ctx.shadowBlur=35;ctx.shadowColor='#9870ff';
-  ctx.fillStyle=document.getElementById('style').value==='fire'?'#ffad5b':'#e2d5ff';
-  ctx.font='bold 64px Arial';
-  let txt=promptBox.value.trim().slice(0,35);
-  ctx.fillText(txt,0,0,1120);
-  ctx.shadowBlur=0;ctx.font='18px Arial';ctx.fillStyle='#c6b5ff';
-  ctx.fillText('MOTIONFORGE · CREATE WITHOUT LIMITS',0,65);
-  ctx.restore();
-  if(t<5)requestAnimationFrame(draw);else recorder.stop();
+ canvas.width=$('ratio').value==='9/16'?720:1280;
+ canvas.height=$('ratio').value==='9/16'?1280:$('ratio').value==='1/1'?1280:720;
+ const ctx=canvas.getContext('2d'),stream=canvas.captureStream(30);
+ let rec;
+ try{rec=new MediaRecorder(stream,{mimeType:'video/webm'})}catch(e){$('status').textContent='WebM recording is unsupported in this browser';return}
+ const chunks=[];rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
+ rec.onstop=()=>{const url=URL.createObjectURL(new Blob(chunks,{type:'video/webm'}));const a=document.createElement('a');a.href=url;a.download='motionforge.webm';a.click();URL.revokeObjectURL(url);$('status').textContent='Video exported'};
+ const duration=Number($('duration').value);let start;
+ rec.start();$('status').textContent='Rendering animation...';
+ function frame(now){
+  if(rec.state!=='recording')return;
+  if(!start)start=now;const t=(now-start)/1000;
+  const w=canvas.width,h=canvas.height;
+  const g=ctx.createRadialGradient(w/2,h/2,10,w/2,h/2,Math.max(w,h)*.7);
+  g.addColorStop(0,'#282044');g.addColorStop(1,'#080810');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+  ctx.strokeStyle='#ffffff10';
+  for(let x=0;x<w;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}
+  for(let y=0;y<h;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}
+  for(let i=0;i<10;i++){const x=w*(.1+i*.085)+Math.sin(t+i)*25,y=h*(.2+(i%4)*.2)+Math.cos(t*1.5+i)*25;ctx.beginPath();ctx.arc(x,y,5+i%3*6,0,Math.PI*2);ctx.fillStyle=accent;ctx.globalAlpha=.5;ctx.fill()}
+  ctx.globalAlpha=1;ctx.textAlign='center';ctx.textBaseline='middle';ctx.shadowColor=accent;ctx.shadowBlur=Number($('glow').value);
+  ctx.fillStyle=accent;ctx.font=`900 ${Math.min(Number($('size').value),canvas.width/10)}px Arial`;
+  ctx.fillText(($('title').value||'MOTION FORGE').slice(0,32),w/2,h/2+Math.sin(t*2)*12,w*.86);
+  ctx.shadowBlur=0;ctx.fillStyle='#d5c9ff';ctx.font='16px Arial';ctx.fillText('DESIGN IN MOTION',w/2,h/2+55);
+  if(t>=duration){rec.stop();return}requestAnimationFrame(frame)
  }
- recorder.start();status.textContent='Recording 5-second animation...';
- requestAnimationFrame(draw);
-});
-generate();
+ requestAnimationFrame(frame);
+};
+update();
 </script>
 </body>
 </html>
